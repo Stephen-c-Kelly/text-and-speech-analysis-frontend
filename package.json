@@ -1,0 +1,16 @@
+{
+  "name": "text-and-speech-analysis-frontend",
+  "version": "1.0.0",
+  "description": "Readme for front-end of text and speech an analysis website.",
+  "main": "js/script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon script.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
