@@ -17,7 +17,7 @@ const showSpeechList = async () => {
   data.forEach(speech =>{
     const listItem = document.createElement('li')
     listItem.innerHTML = `
-      <a href="/speech/${speech._id}"> <h3 class = "speech-detail">${speech.title}</h3> </a>
+      <a href="html/speech?speechId=${speech._id}"> <h3 class = "speech-detail">${speech.title}</h3> </a>
       <p>Speaker: ${speech.speakerFirstName} ${speech.speakerLastName}</p>
       <p>Date: ${speech.date}</p>
     `;  
@@ -32,15 +32,29 @@ const render = ( ) => {
 render()
 
 const showSpeech = async() =>{
-  
-
 }
+
+function getQueryParam(param) {
+  urlParams = new URLSearchParams(window.location.search)
+  return urlParams.get(param)
+}
+
+const speechId = getQueryParam('speechId')
+
+console.log(speechId)
+
+
+load the page 
+
+
 // Click Events
-detailEl.addEventListener('click', (event) =>{
-  const clickedElement = event.target
-  const href = clickedElement.getAttribute('href')
-  showSpeech(href)
-})
+// detailEl.addEventListener('click', loadPage
+
+// (event) =>{
+//   const clickedElement = event.target
+//   const href = clickedElement.getAttribute('href')
+//   showSpeech(href)
+// })
 
 
 console.log(getSpeech())
