@@ -1,9 +1,6 @@
 const listEl = document.querySelector('.speech-list')
 const detailEl = document.querySelector('.speech-detail')
-const speechTitleEl = document.querySelector(`h1`)
-const speechNameEl = document.querySelector('.name')
-const speechDateEl = document.querySelector('.date')
-const speechTextEl = document.querySelector('.speech-text')
+const editBtnEl = document.querySelector('.edit-save')
 
 // axios functions
 
@@ -69,4 +66,45 @@ const showSpeech = async () => {
   }
 showSpeech()
 
+const toggleEdit = () => {
+  if (window.location.pathname.includes('speech.html')) {
+    // cached element references for speech.html page
+    const speechTitleEl = document.querySelector(`h1`)
+    const speechNameEl = document.querySelector('.name')
+    const speechDateEl = document.querySelector('.date')
+    const speechTextEl = document.querySelector('.text')
+    
 
+    // save/edit button toggle
+    if (editBtnEl.innerHTML === 'Edit') {
+      editBtnEl.innerHTML = 'Save'
+      let title = speechTitleEl.innerText
+      console.log(`title is `, title)
+      let name = speechNameEl.innerText
+      let date = speechDateEl.innerText
+      let text = speechTextEl.innerText
+
+      speechTitleEl.innerHTML = `<textarea id="editTitle">${title}</textarea>`
+
+      speechNameEl.innerHTML= `<textarea id="speechNameEl">${name}</textarea>`
+      speechDateEl.innerHTML= `<textarea id="speechDateEl">${date}</textarea>`
+      speechTextEl.innerHTML= `<textarea id="speechTextEl">${text}</textarea>`
+    
+      
+      
+
+      // additional styling can go here
+
+    } else {
+      editBtnEl.innerHTML = 'Edit'
+      //additional styling can go here
+      
+      // call PUT to save 
+
+    }
+  }
+}
+
+
+// Click Events
+editBtnEl.addEventListener('click', toggleEdit)
