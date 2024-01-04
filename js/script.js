@@ -13,7 +13,6 @@ const saveSpeechEl = document.querySelector('.save-speech-button')
 async function getSpeech() {
   try {
   const response = await axios.get('http://localhost:3000/api/speech')
-  // console.log(`data from axios ${response.data}`)
   return response.data
 } catch (error) {
   console.error('getSpeech failed to load:', error)
@@ -39,15 +38,12 @@ const putSpeech = async () => {
     payload.title = document.querySelector('#editTitle').value
     payload.firstName = document.querySelector('#speechNameEl').value.split(" ")[0];
     payload.lastName = document.querySelector('#speechNameEl').value.split(" ")[1];
-    // also suggested by chat gpt:
-// const nameParts = document.querySelector('#speechNameEl').value.trim().split(/\s+/);
-// payload.firstName = nameParts.length > 0 ? nameParts[0] : '';
-// payload.lastName = nameParts.length > 1 ? nameParts[1] : '';
+    console.log(payload.firstName)
     payload.date = document.querySelector('#speechDateEl').value;
     payload.text = document.querySelector('#speechTextEl').value;
     const response = await axios.put(`http://localhost:3000/api/speech/${speechId}`, payload)
     showSpeech()
-    savedSpeechEl.innerHTML = `<p class="savedMsg" >Update Saved Successfully</p>`
+    
    
   } catch (error) {
     console.log(`we had an error`, error);
@@ -59,15 +55,17 @@ const newSpeech = async () => {
   try {
     let payload = {}
     payload.title = document.querySelector('#editTitle').value
-    payload.firstName = document.querySelector('#speechNameEl').value.split(" ")[0];
-    payload.lastName = document.querySelector('#speechNameEl').value.split(" ")[1];
+    payload.speakerFirstName = document.querySelector('#speechNameEl').value.split(" ")[0];
+    payload.speakerLastName = document.querySelector('#speechNameEl').value.split(" ")[1];
+    console.log(`first last name:`, payload.firstName, payload.lastName)
     payload.date = document.querySelector('#speechDateEl').value;
     payload.text = document.querySelector('#speechTextEl').value;
     console.log(`new speech payload:`, payload)
     const response = await axios.post(`http://localhost:3000/api/speech`, payload)
+    
+    addSavedMessage()
     console.log(`speech added successfully `, response)
-    const saveButton = document.createElement("button")
-    saveButton.textContent="Speech Saved"
+    
    
   } catch (error) {
     console.log(`we had an error`, error);
@@ -151,8 +149,6 @@ const toggleEdit = () => {
   }
 }
 
-
-
 const createSpeech = () => {
   // need to change the url so it doesn't confuse people.
   speechTitleEl.innerHTML = `<textarea id="editTitle" placeholder="Speech Title"></textarea>`;
@@ -160,12 +156,11 @@ const createSpeech = () => {
   speechDateEl.innerHTML = `<textarea id="speechDateEl" placeholder="YYYY-MM-DD"></textarea>`;
   speechTextEl.innerHTML = `<textarea id="speechTextEl" placeholder="Speech Text Goes Here"></textarea>`;
   addSaveButton()
-
-
   ;
 }
 
 const addSaveButton = () => {
+  console.log(`beginning of add save button`)
   const saveButton = document.createElement("button")
   saveButton.textContent="Save"
   saveButton.classList.add("save-speech-button");
@@ -173,6 +168,12 @@ const addSaveButton = () => {
   saveButton.addEventListener('click', newSpeech)
 }
 
+const addSavedMessage = () => {
+  console.log(`beginning of new speech saved message`)
+  const message = document.createElement("h2")
+  message.textContent="Speech Saved!"
+  speechTextEl.parentNode.appendChild(message)
+}
 
 // Click Events - Home
 
