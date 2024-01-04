@@ -21,7 +21,7 @@ const deleteSpeechEl = document.querySelector('.delete')
 
 // displaying content 
 const showSpeechList = async () => {
-if (window.location.pathname.endsWith('.app') || window.location.pathname.endsWith(5500)) { 
+  if (window.location.href.includes('.app') || window.location.port === '5500') {
   const data = await getSpeech()
   data.forEach(speech =>{
     const listItem = document.createElement('li')
@@ -34,6 +34,7 @@ if (window.location.pathname.endsWith('.app') || window.location.pathname.endsWi
   })
 }    
 }
+
 const render = ( ) => {
     showSpeechList()
   }
