@@ -9,7 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/style.css">
     <!-- I get errors if this axios link isn't here, and it might be possible import axios...unsure what's better -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script> 
+    <!-- if i use axios.js it should be renamed to avoid confusion -->  
+    <!-- <script type="module" src="../js/axiosFunctions.js" async defer></script> -->
+    <script type="module" src="../js/script.js" defer></script>
   </head>
   <body>
     <h1>Speech Analysis Blog</h1>
@@ -19,6 +22,6 @@
     <ul class = "speech-list">
       
     </ul>
-
-    <script type="module" src="../js/script.js" async defer></script>
+   
+    
   </body>
