@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <!-- Reminder to change HTML classes on speech and upload page if you have to -->
+    <button onclick="location.href = '/html';">home</button>
+    <button class="upload">Upload a Speech</button>
+    <button class="edit-save">Edit</button>
+    
+    <div class="speech">
+      <h1>Upload a speech</h1>
+      <p class="savedMsg" style="display:none;">New Speech Saved Successfully</p>
+      <h2 class="name">First Last</h2>
+      <h2 class="date">YYYY-MM-DD</h2>
+      <p class="text">Input speech here</p>
+    </div>
+    <script src="../js/script.js" async defer></script>
+  </body>
+</html>
