@@ -4,7 +4,7 @@
 
 async function getSpeech() {
   try {
-  const response = await axios.get('http://localhost:3000/api/speech')
+  const response = await axios.get('https://text-and-speech-analysis-0a793b931976.herokuapp.com/api/speech')
   return response.data
 } catch (error) {
   console.error('getSpeech failed to load:', error)
@@ -13,7 +13,7 @@ async function getSpeech() {
 
 const getSpeechById = async (id) => {
   try {
-  const response = await axios.get(`http://localhost:3000/api/speech/${id}`)
+  const response = await axios.get(`https://text-and-speech-analysis-0a793b931976.herokuapp.com/api/speech/${id}`)
   // console.log(`response from get by id is here:`, response)
   return response
 } catch (error) {
@@ -33,7 +33,7 @@ const putSpeech = async () => {
     
     payload.date = document.querySelector('#speechDateEl').value;
     payload.text = document.querySelector('#speechTextEl').value;
-    const response = await axios.put(`http://localhost:3000/api/speech/${speechId}`, payload)
+    const response = await axios.put(`https://text-and-speech-analysis-0a793b931976.herokuapp.com/api/speech/${speechId}`, payload)
     showSpeech()
   } catch (error) {
     console.log(`we had an error`, error);
@@ -52,7 +52,7 @@ const newSpeech = async () => {
     payload.date = document.querySelector('#speechDateEl').value;
     payload.text = document.querySelector('#speechTextEl').value;
     console.log(`new speech payload:`, payload)
-    const response = await axios.post(`http://localhost:3000/api/speech`, payload)
+    const response = await axios.post(`https://text-and-speech-analysis-0a793b931976.herokuapp.com/api/speech`, payload)
     
     addSavedMessage()
     console.log(`speech added successfully `, response)
@@ -69,7 +69,7 @@ const newSpeech = async () => {
     if (confirmDeletion) {
       const speechId = new URLSearchParams(window.location.search).get('speechId');
       console.log(`id to delete is:`, speechId)
-      const response = await axios.delete(`http://localhost:3000/api/speech/${speechId}`)
+      const response = await axios.delete(`https://text-and-speech-analysis-0a793b931976.herokuapp.com/api/speech/${speechId}`)
       console.log('Item deleted');
       window.location.href = '/html'
       // addDeleteMessage()
