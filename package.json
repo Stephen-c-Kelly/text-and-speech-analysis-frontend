@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Readme for front-end of text and speech an analysis website.",
   "main": "js/script.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon script.js"
