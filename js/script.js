@@ -7,6 +7,7 @@ const speechDateEl = document.querySelector('.date')
 const speechTextEl = document.querySelector('.text')
 const uploadSpeechEl = document.querySelector('.upload')
 const saveSpeechEl = document.querySelector('.save-speech-button')
+const deleteSpeechEl = document.querySelector('.delete')
 
 // axios functions
 
@@ -22,7 +23,7 @@ async function getSpeech() {
 const getSpeechById = async (id) => {
   try {
   const response = await axios.get(`http://localhost:3000/api/speech/${id}`)
-  console.log(`response from get by id is here:`, response)
+  // console.log(`response from get by id is here:`, response)
   return response
 } catch (error) {
   console.error('getSpeechById failed, error:', error)
@@ -73,6 +74,20 @@ const newSpeech = async () => {
 
   }
 
+  const deleteSpeech = async () => {
+    const confirmDeletion = confirm('Are you sure you want to delete this item? You will be redirected to the homepage.');
+    if (confirmDeletion) {
+      const speechId = new URLSearchParams(window.location.search).get('speechId');
+      console.log(`id to delete is:`, speechId)
+      const response = await axios.delete(`http://localhost:3000/api/speech/${speechId}`)
+      console.log('Item deleted');
+      window.location.href = '/html'
+      // addDeleteMessage()
+    } else {
+      console.log('Deletion cancelled');
+    }
+  };
+
 
 
 // displaying content 
@@ -102,7 +117,7 @@ const showSpeech = async () => {
   if (speechId) {
     try {
     const data = await getSpeechById(speechId)
-    console.log(`content from id in url:`,data)
+    // console.log(`content from id in url:`,data)
     speechTitleEl.innerHTML = data.data.title
     speechNameEl.innerHTML = `${data.data.speakerFirstName} ${data.data.speakerLastName}`
     speechDateEl.innerHTML = data.data.date
@@ -113,8 +128,7 @@ const showSpeech = async () => {
   }
   else {
     console.log(`speech id not found`)
-  }
-    
+  }  
   }
 showSpeech()
 
@@ -175,10 +189,18 @@ const addSavedMessage = () => {
   speechTextEl.parentNode.appendChild(message)
 }
 
+const addDeleteMessage = () => {
+  console.log(`beginning of deleted speech message`)
+  const message = document.createElement("h2")
+  message.textContent="Speech Deleted!"
+  speechTextEl.parentNode.appendChild(message)
+}
+
 // Click Events - Home
 
 // Click Events -- Speech
 if (window.location.pathname.includes('speech.html')) {
 editBtnEl.addEventListener('click', toggleEdit)
 uploadSpeechEl.addEventListener('click', createSpeech)
+deleteSpeechEl.addEventListener('click', deleteSpeech)
 }
