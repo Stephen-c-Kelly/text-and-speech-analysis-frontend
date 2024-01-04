@@ -117,6 +117,7 @@ render()
 
 
 const showSpeech = async () => {
+  if (checkCurrentPage().isDetailPage) {
   const urlParams = new URLSearchParams(window.location.search)
   const speechId = urlParams.get('speechId')
   if (speechId) {
@@ -131,6 +132,7 @@ const showSpeech = async () => {
       console.error('Error fetching data:', error);
     }
   }
+  }
   else {
     console.log(`speech id not found`)
   }  
@@ -138,7 +140,7 @@ const showSpeech = async () => {
 showSpeech()
 
 const toggleEdit = () => {
-  if (window.location.pathname.includes('speech.html')) {
+  if (checkCurrentPage().isDetailPage)  {
     
     // split name into first and last
     const fullName = speechNameEl.innerText
