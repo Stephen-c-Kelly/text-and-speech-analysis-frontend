@@ -87,7 +87,7 @@ const newSpeech = async () => {
       console.log(`id to delete is:`, speechId)
       const response = await axios.delete(`https://text-and-speech-analysis-0a793b931976.herokuapp.com/api/speech/${speechId}`)
       console.log('Item deleted');
-      window.location.href = '/html'
+      window.location.href = '/'
       // addDeleteMessage()
     } else {
       console.log('Deletion cancelled');
