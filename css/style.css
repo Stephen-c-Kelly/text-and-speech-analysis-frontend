@@ -36,6 +36,18 @@ button {
   margin: 0 .5px;
 }
 
+@media screen and (min-width: 1024px ) {
+  button {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    background-color: var(--secondary-color);
+  }
+
+  .buttons{
+    margin: 5px 15px 5px 10px;
+  }
+}
+
 .speech {
   text-align: center;
   margin: 0 auto;
@@ -86,8 +98,12 @@ h3 {
 
 ul{
   color: var(--);
-  margin: 1px 1px;
+  margin: -20px 1px;
   
+}
+
+ul h3{
+  margin: 5px 0 5px 0;
 }
 
 ul p{

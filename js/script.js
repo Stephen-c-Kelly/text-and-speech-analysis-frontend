@@ -102,7 +102,7 @@ const showSpeechList = async () => {
     const listItem = document.createElement('li')
     listItem.innerHTML = `
       <a href="/html/speech.html?speechId=${speech._id}"> <h3 class = "speech-detail">${speech.title}</h3> </a>
-      <p>Speaker: ${speech.speakerFirstName} ${speech.speakerLastName}</p>
+      <p>Speaker: <strong>${speech.speakerFirstName} ${speech.speakerLastName}</strong></p>
       <p>Date: ${speech.date}</p>
     `;  
     listEl.appendChild(listItem)
