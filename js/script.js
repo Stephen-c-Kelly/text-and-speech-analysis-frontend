@@ -16,6 +16,7 @@ const speechTextEl = document.querySelector('.text')
 const uploadSpeechEl = document.querySelector('.upload')
 const saveSpeechEl = document.querySelector('.save-speech-button')
 const deleteSpeechEl = document.querySelector('.delete')
+const commentsEl = document.querySelector('comments')
 
 // async functions 
 async function getSpeech() {
@@ -75,8 +76,6 @@ const newSpeech = async () => {
      // const response = await axios.post(`http://localhost:3000/api/speech`, payload)
     addSavedMessage()
     console.log(`speech added successfully `, response)
-    
-   
   } catch (error) {
     console.log(`we had an error`, error);
   }
@@ -98,11 +97,30 @@ const newSpeech = async () => {
     }
   };
 
+// comment functions
+const getComments = async (speechId) => {
+  try {
+    const response = await axios.get(`https://text-and-speech-analysis-0a793b931976.herokuapp.com/api/comment/${speechId}`)
+    //const response = await axios.get(`http://localhost:3000/api/comment/${speechId})
+
+    data.forEach(comment =>{
+      const listItem = document.createElement('li')
+      listItem.innerHTML = `
+        <h3 class = "comment-name">${comment.name}</h3> </a>
+        <p>${text}</p>
+        <p>Date: ${comment.date}</p>
+      `;  
+      commentsEl.appendChild(listItem)
+    })
+  } catch (error) {
+    console.error('getComments failed to load:', error)
+    }
+}
+
 
 
 // homepage displaying content 
 const showSpeechList = async () => {
-  if (checkCurrentPage().isHomepage)  {
   const data = await getSpeech()
   data.forEach(speech =>{
     const listItem = document.createElement('li')
@@ -113,11 +131,14 @@ const showSpeechList = async () => {
     `;  
     listEl.appendChild(listItem)
   })
-}    
-}
+}   
 
 const render = ( ) => {
-    showSpeechList()
+  if (checkCurrentPage().isHomepage){
+    showSpeechList()}
+  else {
+    getComments
+  }
   }
 render()
 
@@ -129,7 +150,6 @@ const showSpeech = async () => {
   if (speechId) {
     try {
     const result = await getSpeechById(speechId)
-
     // console.log(`content from id in url:`,data)
     speechTitleEl.innerHTML = result.data.title
     speechNameEl.innerHTML = `${result.data.speakerFirstName} ${result.data.speakerLastName}`
