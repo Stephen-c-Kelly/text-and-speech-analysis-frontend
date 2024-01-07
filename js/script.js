@@ -139,10 +139,7 @@ const showSpeech = async () => {
       console.error('Error fetching data:', error);
     }
   }
-  }
-  else {
-    console.log(`speech id not found`)
-  }  
+  } 
   }
 showSpeech()
 
@@ -225,6 +222,7 @@ function checkCurrentPage() {
 }
 
 // Click Events - Home
+
 
 // Click Events -- Speech
 if (window.location.pathname.includes('speech.html')) {
