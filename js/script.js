@@ -95,9 +95,7 @@ const getComments = async () => {
   try {
     const urlParams = new URLSearchParams(window.location.search);
     const speechId = urlParams.get('speechId');
-    console.log(`get comments func start, id is:`, speechId)
     const response = await axios.get(`${BASE_URL}/api/comment/${speechId}`);
-    console.log(`response is`, response)
     response.data.forEach(comment => {
       const listItem = document.createElement('li');
       listItem.innerHTML = `<h3 class="comment-name">${comment.name}</h3>
