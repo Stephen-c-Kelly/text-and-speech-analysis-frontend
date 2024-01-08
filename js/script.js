@@ -98,9 +98,13 @@ const getComments = async () => {
     const response = await axios.get(`${BASE_URL}/api/comment/${speechId}`);
     response.data.forEach(comment => {
       const listItem = document.createElement('li');
-      listItem.innerHTML = `<h3 class="comment-name">${comment.name}</h3>
-        <p>${comment.text}</p>
-        <p>Date: ${comment.date}</p>
+      listItem.innerHTML = `<div class="one-comment"><h3 class="comment-name" >${comment.name}</h3>
+        <p >${comment.text}</p>
+        <p >Date: ${comment.date}</p>
+          <div class="edit-comment">
+          <button>Edit Comment</button>
+           </div>
+        </div>
       `;
       commentsEl.appendChild(listItem);
     });
