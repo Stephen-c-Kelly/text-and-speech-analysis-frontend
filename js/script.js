@@ -18,7 +18,7 @@ const saveSpeechEl = document.querySelector('.save-speech-button')
 const deleteSpeechEl = document.querySelector('.delete')
 const commentsEl = document.querySelector('.comments')
 
-const BASE_URL = 'https://text-and-speech-analysis-0a793b931976.herokuapp.com/';
+const BASE_URL = 'https://text-and-speech-analysis-0a793b931976.herokuapp.com';
 // const BASE_URL = 'http://localhost:3000';
 
 // Async functions
