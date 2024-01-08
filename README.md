@@ -24,3 +24,4 @@ https://docs.google.com/spreadsheets/d/14RbvwulV9nBnh4dIqPwIFUmxUg1L58HXQjIg-X__
 
 #### Resources
 - Miro Wireframes - https://miro.com/app/board/uXjVN_uy3yY=/?share_link_id=582323872948
+- Figma Designs https://www.figma.com/file/YKZATvbepf4YzwWMF9IK7O/Simple-Website-Blog-Space-(GBLOG)-(Community)?node-id=0%3A1&mode=dev
