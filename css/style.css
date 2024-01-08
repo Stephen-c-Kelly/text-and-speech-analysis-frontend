@@ -136,3 +136,29 @@ textarea {
   border: 1px solid #cccccc;
   resize: vertical;
 }
+
+.comments ul {
+  list-style-type: none; /* Removes default list bullets */
+  padding: 0;
+}
+
+.comment-item {
+  background-color: #f4f4f4; /* Light grey background */
+  border: 1px solid #ddd; /* Light grey border */
+  padding: 10px;
+  margin-bottom: 10px; /* Spacing between comments */
+}
+
+.comment-name {
+  color: #333;
+  margin: 0 0 5px 0; /* Spacing below the name */
+}
+
+.comment-text {
+  margin: 0;
+}
+
+.comment-date {
+  font-size: 0.9em;
+  color: #666;
+}

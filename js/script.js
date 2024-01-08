@@ -16,106 +16,100 @@ const speechTextEl = document.querySelector('.text')
 const uploadSpeechEl = document.querySelector('.upload')
 const saveSpeechEl = document.querySelector('.save-speech-button')
 const deleteSpeechEl = document.querySelector('.delete')
-const commentsEl = document.querySelector('comments')
+const commentsEl = document.querySelector('.comments')
 
-// async functions 
+// const BASE_URL = 'https://text-and-speech-analysis-0a793b931976.herokuapp.com/';
+const BASE_URL = 'http://localhost:3000';
+
+// Async functions
 async function getSpeech() {
   try {
-  const response = await axios.get('https://text-and-speech-analysis-0a793b931976.herokuapp.com/api/speech')
-  //const response = await axios.get('http://localhost:3000/api/speech')
-  return response.data
-} catch (error) {
-  console.error('getSpeech failed to load:', error)
+    const response = await axios.get(`${BASE_URL}/api/speech`);
+    return response.data;
+  } catch (error) {
+    console.error('getSpeech failed to load:', error);
   }
 }
 
 const getSpeechById = async (id) => {
   try {
-  const response = await axios.get(`https://text-and-speech-analysis-0a793b931976.herokuapp.com/api/speech/${id}`)
-  // const response = await axios.get(`http://localhost:3000/api/speech/${id}`)
-  // console.log(`response from get by id is here:`, response)
-  return response
-} catch (error) {
-  console.error('getSpeechById failed, error:', error)
+    const response = await axios.get(`${BASE_URL}/api/speech/${id}`);
+    return response;
+  } catch (error) {
+    console.error('getSpeechById failed, error:', error);
   }
-}
+};
 
 const putSpeech = async () => {
-  const savedSpeechEl = document.querySelector(`.savedMsg`)
+  const savedSpeechEl = document.querySelector(`.savedMsg`);
   try {
-    let payload = {}
+    let payload = {};
     const speechId = new URLSearchParams(window.location.search).get('speechId');
-    payload.title = document.querySelector('#editTitle').value
-    // nameParse() needed here
+    payload.title = document.querySelector('#editTitle').value;
     payload.firstName = document.querySelector('#speechNameEl').value.split(" ")[0];
     payload.lastName = document.querySelector('#speechNameEl').value.split(" ")[1];
-    
     payload.date = document.querySelector('#speechDateEl').value;
     payload.text = document.querySelector('#speechTextEl').value;
-    const response = await axios.put(`https://text-and-speech-analysis-0a793b931976.herokuapp.com/api/speech/${speechId}`, payload)
-    // const response = await axios.put(`http://localhost:3000/api/speech/${speechId}`, payload)
-    showSpeech()
+
+    const response = await axios.put(`${BASE_URL}/api/speech/${speechId}`, payload);
+    showSpeech();
   } catch (error) {
     console.log(`we had an error`, error);
   }
-}
+};
 
 const newSpeech = async () => {
-  console.log(`start of new speech`)
+  console.log(`start of new speech`);
   try {
-    let payload = {}
-    payload.title = document.querySelector('#editTitle').value
-    // nameParse() needed here
+    let payload = {};
+    payload.title = document.querySelector('#editTitle').value;
     payload.speakerFirstName = document.querySelector('#speechNameEl').value.split(" ")[0];
     payload.speakerLastName = document.querySelector('#speechNameEl').value.split(" ")[1];
-    // console.log(`first last name:`, payload.firstName, payload.lastName)
     payload.date = document.querySelector('#speechDateEl').value;
     payload.text = document.querySelector('#speechTextEl').value;
-    console.log(`new speech payload:`, payload)
-    const response = await axios.post(`https://text-and-speech-analysis-0a793b931976.herokuapp.com/api/speech`, payload)
-     // const response = await axios.post(`http://localhost:3000/api/speech`, payload)
-    addSavedMessage()
-    console.log(`speech added successfully `, response)
+
+    console.log(`new speech payload:`, payload);
+    const response = await axios.post(`${BASE_URL}/api/speech`, payload);
+    addSavedMessage();
+    console.log(`speech added successfully `, response);
   } catch (error) {
     console.log(`we had an error`, error);
   }
+};
 
+const deleteSpeech = async () => {
+  const confirmDeletion = confirm('Are you sure you want to delete this item? You will be redirected to the homepage.');
+  if (confirmDeletion) {
+    const speechId = new URLSearchParams(window.location.search).get('speechId');
+    console.log(`id to delete is:`, speechId);
+    const response = await axios.delete(`${BASE_URL}/api/speech/${speechId}`);
+    console.log('Item deleted');
+    window.location.href = '/';
+  } else {
+    console.log('Deletion cancelled');
   }
+};
 
-  const deleteSpeech = async () => {
-    const confirmDeletion = confirm('Are you sure you want to delete this item? You will be redirected to the homepage.');
-    if (confirmDeletion) {
-      const speechId = new URLSearchParams(window.location.search).get('speechId');
-      console.log(`id to delete is:`, speechId)
-      const response = await axios.delete(`https://text-and-speech-analysis-0a793b931976.herokuapp.com/api/speech/${speechId}`)
-      // const response = await axios.delete(`http://localhost:3000/api/speech/${speechId}`)
-      console.log('Item deleted');
-      window.location.href = '/'
-      // addDeleteMessage()
-    } else {
-      console.log('Deletion cancelled');
-    }
-  };
-
-// comment functions
-const getComments = async (speechId) => {
+// Comment functions
+const getComments = async () => {
   try {
-    const response = await axios.get(`https://text-and-speech-analysis-0a793b931976.herokuapp.com/api/comment/${speechId}`)
-    //const response = await axios.get(`http://localhost:3000/api/comment/${speechId})
-
-    data.forEach(comment =>{
-      const listItem = document.createElement('li')
-      listItem.innerHTML = `
-        <h3 class = "comment-name">${comment.name}</h3> </a>
-        <p>${text}</p>
+    const urlParams = new URLSearchParams(window.location.search);
+    const speechId = urlParams.get('speechId');
+    console.log(`get comments func start, id is:`, speechId)
+    const response = await axios.get(`${BASE_URL}/api/comment/${speechId}`);
+    console.log(`response is`, response)
+    response.data.forEach(comment => {
+      const listItem = document.createElement('li');
+      listItem.innerHTML = `<h3 class="comment-name">${comment.name}</h3>
+        <p>${comment.text}</p>
         <p>Date: ${comment.date}</p>
-      `;  
-      commentsEl.appendChild(listItem)
-    })
+      `;
+      commentsEl.appendChild(listItem);
+    });
   } catch (error) {
-    console.error('getComments failed to load:', error)
-    }
-}
+    console.error('getComments failed to load:', error);
+  }
+};
 
 
 
@@ -137,10 +131,12 @@ const render = ( ) => {
   if (checkCurrentPage().isHomepage){
     showSpeechList()}
   else {
-    getComments
+    getComments()
   }
   }
+  
 render()
+
 
 // detail page content
 const showSpeech = async () => {
