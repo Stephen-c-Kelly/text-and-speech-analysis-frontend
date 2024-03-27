@@ -1,4 +1,4 @@
-# Back End - Text and Speech Analysis Application
+# Front End - Text and Speech Analysis Application
 Front end code for an application providing text and speech analysis discussion tools built for educators and students.
 
 ## Project Description 
